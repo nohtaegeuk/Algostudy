@@ -5,65 +5,65 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class 소금쟁이 {
-
-	static int dr[] = {0,-1,1,0,0};
-	static int dc[] = {0,0,0,-1,1};
+	static int[] dx = {0,-1,1,0,0};
+	static int[] dy = {0,0,0,-1,1};
 	
 	public static void main(String[] args) throws FileNotFoundException {
-		System.setIn(new FileInputStream("소금쟁이합계_tc.txt"));
+		System.setIn(new FileInputStream("소금쟁이.txt"));
 		Scanner sc = new Scanner(System.in);
 		int T = sc.nextInt();
 		
-		for (int tc = 1; tc <= T; tc++) {
-			int N = sc.nextInt();
-			int M = sc.nextInt(); // 소금쟁이 수
-			
-			int[][] map = new int[N][N]; // 맵만들고
-			int[] cur_x = new int[M]; // 시작위치
-			int[] cur_y = new int[M]; // 시작위치
-			int[] direction = new int[M];
 		
+		for (int tc = 0; tc < T; tc++) {
+			int N = sc.nextInt();
+			int[][] pond = new int[N][N];
 			
+			int number = sc.nextInt();
 			
-			for (int i = 0; i < M; i++) {
-				cur_x[i] = sc.nextInt();
-				cur_y[i] = sc.nextInt();
-				direction[i] = sc.nextInt();
+			int[] start_x = new int[number];
+			int[] start_y = new int[number];
+			int[] dir = new int[number];
+			
+			for (int i = 0; i < number; i++) {
+				start_x[i] = sc.nextInt();
+				start_y[i] = sc.nextInt();
+				dir[i] = sc.nextInt();
 			}
 			
-			int[] cansu = {3,2,1};
 
-		
-			for (int i = 0; i < M; i++) {
-				 
-				 int x = cur_x[i];
-				 int y = cur_y[i];
-				 
-				 for (int j = 0; j < 3; j++) {
-					x += dr[direction[i]] * cansu[j];
-					y += dc[direction[i]] * cansu[j];
+			int survival = 0;
+			int[] cansu = {3,2,1};
+			
+			for (int i = 0; i < number; i++) {
+				int cur_x = start_x[i];
+				int cur_y = start_y[i];
+				boolean flag = true;
+				
+				for (int j = 0; j < 3; j++) {
+					cur_x += dx[dir[i]] * cansu[j];
+					cur_y += dy[dir[i]] * cansu[j];
 					
-					if(x <0 || x>=N || y<0 || y>=N) {
-						M--;
-						break;
-					} else if(x>=0 && x<N && y>=0 && y<N) {
-						if(map[x][y] == 1) {
-							M--;
+					if(cur_x>=0 && cur_x<N && cur_y>=0 && cur_y<N) {
+						if(pond[cur_x][cur_y] == 1) {
+							flag = false;
 							break;
 						}
+					} else {
+						flag = false;
+						break;
 					}
-					map[x][y] = 1;
-					
-				 }
-				 
+				}
 				
-				 
+				if(flag == false) {
+					
+				}else {
+					pond[cur_x][cur_y] = 1;
+					survival++;
+				}
 			}
-			
-
-			
-			System.out.println("#" + tc + " " + M);
+			 System.out.println("#" + (tc+1) + " " + survival);
 		}
-	}
-
+		
+		
+	}	
 }

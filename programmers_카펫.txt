@@ -1,0 +1,28 @@
+class Solution {
+    public int[] solution(int brown, int yellow) {
+        int[] answer = new int [2]; // return해야하는 값이 가로 세로 2개이므로 배열크기가 2
+        
+        int sum = brown + yellow; // sum은 brown과 yellow를 더해서 저장
+        
+        
+        for(int i = 1; i <= sum; i++){
+            
+            if( sum % i == 0 ){ // 만약에 i로 나누어 떨어진다면, 그것은 성립할 수도 있는 값임.
+                int width = sum / i;
+                int height = sum / width;
+                
+                int inside_wid = width - 2; // 위의 width와 height로 만들었을때 검사해야함.
+                int inside_hei = height - 2;
+                
+                if(width >= height && inside_wid * inside_hei == yellow ){
+                   answer[0] = width;
+                    answer[1] = height;
+                }
+            }
+        }
+        
+        
+        
+        return answer;
+    }
+}

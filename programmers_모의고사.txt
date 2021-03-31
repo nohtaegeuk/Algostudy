@@ -1,0 +1,62 @@
+import java.util.*;
+import java.io.*;
+
+class Solution {
+    public int[] solution(int[] answers) {
+        int[] answer = {};
+        
+        int[] first = {1,2,3,4,5}; //찍는 방법
+        int[] second = {2,1,2,3,2,4,2,5};
+        int[] third = {3,3,1,1,2,2,4,4,5,5};
+        
+        int[] people = new int [3]; // 사람이 3명
+        
+        for (int i = 0; i < 3;  i++){
+            people[i] = 0; //초기화
+        }
+        
+        for (int i=0; i < answers.length;  i++) { // for문 돌면서, people 배열에 정답 수 만큼 더해주기
+            
+            if( answers[i] == first[i % 5]){
+                people[0]++;
+            }
+            if( answers[i] == second[i % 8]){
+                people[1]++;
+            }
+            if( answers[i] == third[i % 10]){
+                people[2]++;
+            }
+            
+        }
+        
+        ArrayList<Integer> list = new ArrayList<>();
+        
+        int max = people[0];
+        
+        for (int i=1 ; i < 3 ; i++ ) { // 최댓값 구하기 사람이 맞춘문제의 최댓값
+            
+            if(max < people[i]) {
+                max = people[i]; 
+            }
+        }
+        
+        for (int i = 0; i < 3; i++ ) {
+            
+            if ( max == people[i] ) {
+                list.add(i+1);
+            }
+            
+        }
+        
+        
+        answer = new int [list.size()]; //answer배열은 가장 많이 맞춘 사람의 수만큼 크기로 되어야함
+        
+        for (int i = 0; i < list.size() ; i++ ){
+            answer[i] = list.get(i);
+        }
+        
+        
+        
+        return answer;
+    }
+}

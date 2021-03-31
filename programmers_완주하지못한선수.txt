@@ -1,0 +1,34 @@
+import java.util.Arrays;
+
+
+class Solution {
+    public String solution(String[] participant, String[] completion) {
+        String answer = "";
+        String test = "";
+        
+        Arrays.sort(participant);
+        Arrays.sort(completion);
+        
+        int i = 0;
+        
+        while ( i < completion.length ){
+            
+            if( !completion[i].equals(participant[i]) ){
+                test = participant[i];
+                break;
+            } else {
+                i++;
+            }
+            
+        }
+        
+        if(test.equals("")) {
+            answer = participant[participant.length - 1];
+        } else {
+            answer = test;
+        }
+        
+        
+        return answer;
+    }
+}

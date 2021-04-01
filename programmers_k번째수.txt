@@ -1,0 +1,23 @@
+import java.util.Arrays;
+import java.util.*;
+import java.io.*;
+
+class Solution {
+    public static ArrayList<Integer> solution(int[] array, int[][] commands) {
+        
+        
+        ArrayList <Integer> answer = new ArrayList<>();
+        ArrayList <Integer> test = new ArrayList<>();
+        
+        for (int i=0; i < commands.length; i++) {
+            test.clear();
+            for (int j = commands[i][0] - 1 ; j < commands[i][1] ; j++) {
+                test.add(array[j]);
+            }
+            Collections.sort(test);
+            answer.add(test.get(commands[i][2] - 1));
+        }
+        
+        return answer;
+    }
+}

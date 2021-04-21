@@ -1,0 +1,65 @@
+import java.util.*;
+
+class Solution {
+    
+    // HashSet을 사용하는 이유는 일단 해쉬셋은 set의 파생클래스인데
+    // set은 기본적으로 집합으로된 중복된 원소를 허용하지 않는다
+    // 그러니깐 이말은 1,2,3,4,5에 또 다시 1,2,3,4,5를 넣어도
+    // 1,2,3,4,5만 있음, 즉 순서 고려 안하고, 중복문제를 해결해줌.
+    // answer은 hashset의 size를 출력하면 갯수를 나타낼 수 있음.
+    private Set<Integer> set = new HashSet<Integer>();
+    
+    // 소수인지 아닌지 확인해주는 함수인데
+    // 우선 check함수에 인자로 들어가는 num이 1이면 무조건 false(소수가 아니기 때문에)를 리턴해줌
+    // 그 다음에 2부터 num까지 for문을 이용해서 소수인지 검사해주는데
+    // 인자로 들어가는 num이 num까지의 모든 수 중에 한 번이라도 나눠진다면 소수가 아니게 됨.
+    // 1인지아닌지, 나눠지는지아닌지, 2번의 검사후에는 소수이므로 true를 리턴해줌.
+    public boolean Check(int num) {
+        
+        if(num == 1) {
+            return false;
+        } else {
+            
+            for(int i = 2; i < num; i++) {
+                if( num % i == 0) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+    // perm은 순열함수인데, 만들 수 있는 모든 조합을 만듬.
+    // isEmpty는 String s로 인자로 들어오는 것이 객체가 비어있는지 아닌지 검사해줌
+    // 두번째 substring에서 (0,1)은 검사하려고 하는것 중에 011과 11같이 앞에 0이 붙어있는것들을 체크해야함.
+    // 이 2번의 검사후에 소수인지 검사를 해주고, 만약에 소수라면 HashSet에 그 수를 넣어줌.
+    // 수를 넣어주게 되면 size가 +1이 됨.
+    
+    // 그리고 완전탐색으로 perm 함수에 모든 숫자배열을 검사해줌.
+    // string은 +만으로도 연결됨. perm에 두번쨰 인자로는 numbers를 넣어줄라면 0~i, i+1~numbers.length()까지 substring을 
+    // 이용해서 넣어주기.
+    public void perm(String s, String numbers) {
+        
+        if(!s.isEmpty() && !s.substring(0,1).equals("0")) {
+            
+            int num = Integer.parseInt(s);
+            if(Check(num)) {
+                set.add(num);
+            }
+        }
+        
+        for(int i=0; i < numbers.length(); i++) {
+            
+            perm(s + numbers.substring(i,i+1), numbers.substring(0,i) + numbers.substring(i+1, numbers.length()));
+        }
+    }
+    
+    
+    public int solution(String numbers) {
+        
+        perm("",numbers);
+        int answer = set.size();
+        return answer;
+    }
+}

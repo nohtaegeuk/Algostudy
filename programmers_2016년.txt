@@ -1,0 +1,25 @@
+class Solution {
+      public String solution(int a, int b) {
+          String answer = "";
+          
+          String[] day = {"SUN","MON","TUE","WED","THU","FRI","SAT"};
+          
+          int Total_Day = 0;
+          
+          for( int i = 1; i < a; i++ ) {
+              
+              if( i==4 || i==6 || i==9 || i==11) {
+                  
+                  Total_Day += 30;
+              } else if( i == 2) {
+                  Total_Day += 29;
+              } else {
+                  Total_Day += 31;
+              }
+          }
+          
+          Total_Day += b+4;
+          
+          return day[Total_Day % 7];
+      }
+    }

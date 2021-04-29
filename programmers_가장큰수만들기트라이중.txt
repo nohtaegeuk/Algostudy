@@ -1,0 +1,51 @@
+import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+
+class Solution {
+    public String solution(int[] numbers) {
+        String answer = "";
+        
+        int num = fact(numbers.length);
+        
+        String [] arr = new String[num];
+        int [] answer_arr = new int[num];
+        
+        
+        for( int i = 0; i < numbers.length; i++) {
+            
+            for( int j = 0; j < numbers.length; j++) {
+                
+                if(i == j) {
+                    continue;
+                } else {
+                    arr[i] += String.valueOf(numbers[i]);
+                }
+            }
+        }
+        
+        for( int i = 0; i < num; i++) {
+            answer_arr[i] = (Integer.valueOf(arr[i]));
+        }
+        
+        Arrays.sort(answer_arr);
+        
+        if(answer_arr[num-1] == 0) {
+            answer = "0";
+        } else {
+            answer = String.valueOf(answer_arr[num-1]);
+        }
+        
+        return answer;
+    }
+    
+    public static int fact(int n) {
+        
+        if( n <= 1) {
+            return n;
+        } else {
+            return fact(n-1) * n;
+        }
+    }
+
+}

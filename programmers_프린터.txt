@@ -1,0 +1,41 @@
+import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+
+class Solution {
+public int solution(int[] priorities, int location) {
+        int answer = 0;
+    
+        Queue <Integer> que = new LinkedList<>();
+    
+        for( int num : priorities) {
+            que.add(num);
+        }
+    
+        Arrays.sort(priorities);
+        int length = priorities.length - 1;
+    
+        while( !que.isEmpty()) {
+            
+            int cur = que.poll();
+            
+            if( cur == priorities[length - answer]) {
+                answer++;
+                location--;
+                if(location < 0) {
+                    break;
+                }
+            } else {
+                que.add(cur);
+                location--;
+                if(location < 0) {
+                    location = que.size() - 1;
+                }
+            }
+            
+        }
+    
+    
+        return answer;
+    }
+}

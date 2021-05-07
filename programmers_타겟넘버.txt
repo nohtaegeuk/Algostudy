@@ -1,0 +1,37 @@
+import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+
+class Solution {
+    
+    static int answer;
+    
+    public void dfs(int[] numbers, int target, int index, int sum) {
+        if(index == numbers.length) {
+            if(sum == target) {
+                answer++;
+                
+            }
+            return;
+        }
+        
+        sum += numbers[index];
+        
+        dfs(numbers, target, index + 1, sum);
+        
+        sum -= numbers[index];
+        
+        sum += (-1 * numbers[index]);
+        
+        dfs(numbers, target, index + 1, sum);
+    }
+    
+    
+    public int solution(int[] numbers, int target) {
+        answer = 0;
+        // sum은 numbers[i]의 값들을 저장하기 위한.
+        dfs(numbers, target, 0, 0);
+        
+        return answer;
+    }
+}

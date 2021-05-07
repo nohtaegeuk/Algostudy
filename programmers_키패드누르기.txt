@@ -1,0 +1,100 @@
+package kakao;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.*;
+
+import java.util.*;
+
+class Solution {
+
+  public static void main(String[] args) {
+
+	 Solution solution = new Solution();
+	 
+	 int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+	 
+	 System.out.println(solution.solution(numbers, "right"));
+  }
+	
+	
+  	
+  public String solution(int[] numbers, String hand) {
+      //2차원 배열안에 넣어줌, 왼손위치는 처음시작 10 에서 시작(*) , 0은 11로, 오른손위치 12(#)에서 시작.
+	  int[][] pad = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }, { 10, 11, 12 } };
+	  
+	  StringBuilder sb = new StringBuilder(); // result에 하나씩 append하기 위한.
+	  String answer = "";
+	  
+	  int curx_L = 3; // [3,0]이 현재 아무것도 안했을 때, 왼손위치
+	  int cury_L = 0;
+	  
+	  int curx_R = 3; // [3,2]가 현재 아무것도 안했을 때, 오른손 위치
+	  int cury_R = 2;
+	  
+	  // numbers만큼 반복
+	  for (int i = 0; i < numbers.length; i++) {
+		  
+		  // 만약에 1 4 7중에 입력해야한다면 무조건 왼손으로함.
+		  if(numbers[i] == 1 || numbers[i] == 4 || numbers[i] == 7) {
+			  sb.append("L");
+			  if(numbers[i] == 1) {
+				  curx_L = 0; cury_L = 0; // [0,0]으로 현재위치 최신화
+			  } else if(numbers[i] == 4) {
+				  curx_L = 1; cury_L = 0; // [1,0]으로 현재위치 최신화
+			  } else if(numbers[i] == 7) {
+				  curx_L = 2; cury_L = 0; // [2,0]으로 현재위치 최신화
+			  }
+		  } else if(numbers[i] == 3 || numbers[i] == 6 || numbers[i] == 9) {
+			  sb.append("R");
+			  if(numbers[i] == 3) {
+				  curx_R = 0; cury_R = 2; // [0,2]으로 현재위치 최신화
+			  } else if(numbers[i] == 6) {
+				  curx_R = 1; cury_R = 2; // [1,2]으로 현재위치 최신화
+			  } else if(numbers[i] == 9) {
+				  curx_R = 2; cury_R = 2; // [2,2]으로 현재위치 최신화
+			  }
+		  } else { // 만약에 2 5 8 0중에 하나라면,
+			  
+			  int left_distance = 0; //초기화시켜줌
+			  int right_distance = 0;
+			  
+			  int target_x = 0; //2,5,8,0중에 좌표 넣어주기 위함.
+			  int target_y = 0;
+			  // 왼손이 더 가까운지 , 오른손이 더 가까운지 거리를 재야함.
+			  
+			  if(numbers[i] == 2) {
+				  target_x = 0; target_y = 1;
+			  } else if(numbers[i] == 5) {
+				  target_x = 1; target_y = 1;
+			  } else if(numbers[i] == 8) {
+				  target_x = 2; target_y = 1;
+			  } else if(numbers[i] == 0) {
+				  target_x = 3; target_y = 1;
+			  }
+			  
+			  //거리를 절대값을 이용해서 저장해주기.
+			  left_distance = Math.abs(target_x - curx_L) + Math.abs(target_y - cury_L);
+			  right_distance = Math.abs(target_x - curx_R) + Math.abs(target_y - cury_R);
+			  
+			  if(left_distance < right_distance) {
+				  sb.append("L");
+				  curx_L = target_x; cury_L = target_y;
+			  } else if(left_distance > right_distance) {
+				  sb.append("R");
+				  curx_R = target_x; cury_R = target_y;
+			  } else if(left_distance == right_distance) {
+				  if(hand.equals("left")) {
+					  sb.append("L");
+					  curx_L = target_x; cury_L = target_y;
+				  } else if(hand.equals("right")) {
+					  sb.append("R");
+					  curx_R = target_x; cury_R = target_y;
+				  }
+			  }
+		  }
+	  }
+	  
+	  answer = sb.toString();
+	  return answer;
+  }
+}

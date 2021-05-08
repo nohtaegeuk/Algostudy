@@ -1,0 +1,116 @@
+package kakao;
+import java.util.LinkedList;
+import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+
+
+class Solution {
+
+  public static void main(String[] args) {
+
+	 Solution solution = new Solution();
+	 
+	 String s = "123";
+	 
+	 System.out.println(solution.solution(s));
+  }
+	
+	
+  	
+  public int solution(String s) {
+      
+	  int answer = 0;
+	  
+	  StringBuilder sb = new StringBuilder(); // 하나씩 더해주기 위한.
+	  
+	  Character [] arr = new Character[s.length()]; // string s안에 있는 것들을 저장하기 위한
+	  
+	  for (int i = 0; i < arr.length; i++) {
+		
+		  arr[i] = s.charAt(i); // 배열안에 있는 것들을 하나씩 저장해줌.
+		 //System.out.println(arr[i]);
+	  }
+	 
+	  
+ 	  for (int i = 0; i < arr.length; ) {
+		
+		  if(arr[i] == 'z') {
+			  sb.append("0"); // 0
+			  i += 4;
+		  } else if(arr[i] == 'o') {
+			  sb.append("1"); // 
+			  i += 3;
+		  } else if(arr[i] == 't') {
+			 if(arr[i+1] == 'w') {
+				 sb.append("2"); // 2
+				 i += 3;
+			 } else if(arr[i+1] == 'h') {
+				 sb.append("3"); // 3
+				 i += 5;
+			 }
+		  } else if(arr[i] == 'f') {
+			  if(arr[i+1] == 'o') {
+					 sb.append("4"); // 4
+					 i += 4;
+				 } else if(arr[i+1] == 'i') {
+					 sb.append("5"); // 5
+					 i += 4;
+				 } 
+		  } else if( arr[i] == 's') {
+			  if(arr[i+1] == 'i') {
+					 sb.append("6"); // 6
+					 i += 3;
+			  } else if(arr[i+1] == 'e') {
+					 sb.append("7"); // 7
+					 i += 5;
+			  }
+		  } else if( arr[i] == 'e') {
+			  sb.append("8"); //8
+			  i += 5;
+		  } else if( arr[i] == 'n') {
+			  sb.append("9");
+			  i += 4;
+		  } else if( arr[i] == '1') {
+			  sb.append("1");
+			  i++;
+		  } else if( arr[i] == '2') {
+			  sb.append("2");
+			  i++;
+		  } else if( arr[i] == '3') {
+			  sb.append("3");
+			  i++;
+		  } else if( arr[i] == '4') {
+			  sb.append("4");
+			  i++;
+		  } else if( arr[i] == '5') {
+			  sb.append("5");
+			  i++;
+		  } else if( arr[i] == '6') {
+			  sb.append("6");
+			  i++;
+		  } else if( arr[i] == '7') {
+			  sb.append("7");
+			  i++;
+		  } else if( arr[i] == '8') {
+			  sb.append("8");
+			  i++;
+		  } else if( arr[i] == '9') {
+			  sb.append("9");
+			  i++;
+		  } else if( arr[i] == '0') {
+			  sb.append("0");
+			  i++;
+		  }
+		  
+	  }
+	  
+	  
+ 	  answer = Integer.parseInt(sb.toString());
+	  
+	  
+	  return answer;
+	  
+  }
+}

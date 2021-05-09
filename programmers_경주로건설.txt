@@ -1,0 +1,87 @@
+package algo;
+
+
+class Solution {
+
+	int [][] board;
+	int [][] copy; // 이매지네이션 하기 위한
+	boolean [][] visited; // 방문했는지 안했는지
+	int result = Integer.MAX_VALUE; // 최소값을 구하기 위해 최댓값
+	static int [] dx = {-1,1,0,0}; // 상하좌우를 위한
+	static int [] dy = {0,0,-1,1};
+	
+	
+	public int solution(int[][] board) {
+		
+		int answer = 0;
+	
+		this.board = board;
+		
+		copy = new int [board.length][board.length]; // board 똑같은 크기로 만들어줌
+		visited = new boolean [board.length][board.length];
+		
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				copy[i][j] = Integer.MAX_VALUE - 1000;
+			}
+		}
+		
+		dfs(0,0,0,0,0); // 1,2번째는 출발 xy위치, 3,4번째는 갈 xy위치, 5번째는 비용 넣어줌
+		
+		answer = result;
+		
+		
+		return answer;
+	}
+
+
+	private void dfs(int bx, int by, int x, int y, int sum) {
+		// TODO Auto-generated method stub
+		
+		visited[x][y] = true; // 일단 가자마자 방문표시 해줌.
+		copy[x][y] = sum; // 여태 쌓아왔던 값 넣어줌.
+		
+		// 도착했다면,
+		if( x == board.length -1 && y == board.length -1) {
+			if(result > sum) {
+				result = sum; // 더 작은 값이라면 result 바꿔줌
+			}
+			
+			visited[x][y] = false; // 원래대로 돌려놓기
+			
+			return; 
+		}
+		
+		// 상하좌우 검색
+		for (int i = 0; i < 4; i++) {
+			int fx = x + dx[i];
+			int fy = y + dy[i];
+			
+			//범위내에있고, 방문하지 않았다면
+			if(fx >= 0 && fy >= 0 && fx < board.length && fy < board.length && !visited[fx][fy]) {
+				if(board[fx][fy] == 0) {
+					
+					int price = sum + 100;
+					
+					if(bx != fx && by != fy) {
+						price += 500;
+					}
+					
+					if(price < result && price <= copy[fx][fy] + 500) {
+						dfs(x,y,fx,fy,price);
+					}
+				}
+				
+			}
+			
+		}
+		
+		visited[x][y] = false;
+		
+	}
+
+
+	
+
+	
+}

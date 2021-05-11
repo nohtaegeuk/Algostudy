@@ -1,0 +1,81 @@
+package algo;
+
+import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Queue;
+
+
+class Solution {
+	
+	int answer;
+	boolean [] visit;
+    
+	public int solution(String begin, String target, String[]
+			words) {
+		
+		answer = 51;
+		boolean possible = false;
+		
+		visit = new boolean[words.length];
+        
+		for (int i = 0; i < words.length; i++) {
+			if(target.equals(words[i])) {
+				possible = true;
+			}
+		}
+		
+		if(possible = true) {
+			dfs(begin, target, words, 0);
+			return answer;
+		} else {
+			return 0;
+		}
+		
+//		dfs(begin, target, words, 0);
+//		
+//		if(answer == 51) {
+//			return 0;
+//		} else {
+//			return answer;
+//		}
+		
+	}
+
+	private void dfs(String now, String target, String[] words, int count) {
+		// TODO Auto-generated method stub
+		
+		 if(now.equals(target)) {
+			 answer = (answer > count) ? count : answer;
+	            return;
+	     }
+		
+		for (int i = 0; i < words.length; i++) {
+			if( !visit[i] && check(now, words[i])) {
+				visit[i] = true;
+				dfs(words[i], target, words, count+1);
+				visit[i] = false;
+			}
+		}
+		
+	}
+
+	public boolean check(String now, String next) {
+		// TODO Auto-generated method stub
+		int count = 0;
+		
+		for (int i = 0; i < now.length(); i++) {
+			if(now.charAt(i) != next.charAt(i)) {
+				count++;
+			}
+		}
+		
+		return count == 1 ? true : false;
+	}
+
+	
+
+
+	
+}

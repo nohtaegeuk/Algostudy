@@ -1,0 +1,51 @@
+
+import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Queue;
+
+
+class Solution {
+	
+	public int solution(int n , int[][] computers) {
+		
+		int answer = 0;
+		
+		boolean [] visit  = new boolean[n]; // 연결되었는지 안되었는지 알기위한. visit
+											//처음에는 다 false로 되어있음.
+		
+		for (int i = 0; i < n; i++) {
+			if( !visit[i]) {
+				
+				dfs(computers, visit, i);
+				answer++;
+			}
+		}
+		
+		return answer;
+	}
+
+	private void dfs(int[][] computers, boolean[] visit, int i) {
+		// TODO Auto-generated method stub
+		// 재귀로 돌렸을 떄 true면 그만하게끔 만들어주기위해.
+		visit[i] = true;
+			
+		for (int j = 0; j < computers.length; j++) {
+			if(i == j) { // 0,0 / 1,1 자기 자신은 무조건 연결되어있기 때문에 패쓰
+				continue;
+			} else { // visit이 false이고 연결되어있다면
+				if(visit[j] == false && computers[i][j] == 1) {
+					dfs(computers, visit, j);
+				}
+			}
+				
+		}
+		
+		
+		
+		
+	}
+
+	
+}

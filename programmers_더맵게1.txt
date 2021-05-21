@@ -1,0 +1,36 @@
+import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Queue;
+
+class Solution {
+    public int solution(int[] scoville, int K) {
+        
+        int answer = 0;
+        
+        PriorityQueue<Integer> q = new PriorityQueue<>();
+        
+        for(int i = 0; i < scoville.length; i++) {
+            q.offer(scoville[i]); // 큐에다가 scoville안의 값들을 집어넣기. offer.
+        }
+        
+        // size는 1 초과여야한다. 2개로 합쳤을 떄 k넘을 수 있으니깐, 또한 q.peek에서 K보다 작아야한다. 크다면, 이미 만들어질 수 있따.
+        while(q.size() > 1 && q.peek() < K) {
+            int min_first = q.poll();
+            int min_second = q.poll();
+            
+            q.offer(min_first + min_second * 2);
+            
+            answer++;
+        }
+        
+        // 만약에 큐에서 뽑은 값이 K보다 작고, 그 사이즈가 1이라면 그 값으로는 이미 넘을 수 없음.
+        if(q.peek() < K && q.size() == 1) {
+            answer = -1;
+        }
+        
+        return answer;
+        
+    }
+}

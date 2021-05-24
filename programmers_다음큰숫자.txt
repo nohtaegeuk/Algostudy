@@ -1,0 +1,27 @@
+import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Queue;
+
+class Solution {
+    public int solution(int n) {
+        
+        int answer = 0;
+        
+        int count_one = Integer.bitCount(n); // bitCount()메소드를 사용하면 괄호안에 1의 갯수를 세어준다.
+        
+        answer = n; //어차피 answer는 1보다 큰 값부터 체크하면서 나가면됨.
+        
+        while(true) {
+            
+            answer += 1; //1씩 더해주면서 체크해줌.
+            
+            if( count_one == Integer.bitCount(answer)) {
+                break;
+            }
+        }
+        
+        return answer;
+    }
+}

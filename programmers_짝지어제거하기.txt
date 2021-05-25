@@ -1,0 +1,31 @@
+import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Queue;
+
+class Solution
+{
+    public int solution(String s)
+    {
+        Stack<Character> stack = new Stack<Character>(); // 스택은 선언
+        
+        //for문으로 반복
+        for(int i=0; i<s.length(); i++){
+            
+            if(!stack.isEmpty() && stack.peek() == s.charAt(i)){ // 만약에 맨 위에있는거랑 가리키는게 같고 비어있지않다면
+                stack.pop(); // 그거 중복이니깐 빼주기
+                
+            } else {
+                stack.push(s.charAt(i)); // 아니면 넣어주기
+            }
+                
+        }
+        
+        if( stack.isEmpty() == true) { // 다 중복되서 아무것도 없게되면 1리턴 
+            return 1;
+        } else {
+            return 0; // 아니면 0 리턴
+        }
+    }
+}

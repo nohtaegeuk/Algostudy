@@ -1,0 +1,23 @@
+class Solution {
+    public long solution(int n) {
+        long answer = 0;
+        
+        int [] arr = new int [2001]; // 1이상 2000이하니깐 2001개만큼 만들어줌.
+        
+        arr[1] = 1; // 칸이 하나일 때는 1개밖에 안나옴.
+        arr[2] = 2; // 칸이 두개일 때는 1,1/ 2 두개나옴.
+        // arr[3] 이라고 할떄, 3번째는 arr[1] + arr[2].
+        
+        // n까지만 반복해준다.
+        for( int i = 3; i <= n; i ++ ) {
+            arr[i] = (arr[i-1] + arr[i-2]) % 1234567;
+        }
+        
+        
+        answer = arr[n] % 1234567;
+        
+        return answer;
+        
+        
+    }
+}

@@ -1,0 +1,37 @@
+import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Queue;
+
+class Solution {
+    public int solution(int[] arr) {
+        
+        
+        Arrays.sort(arr); // 배열을 오름차순으로 정리.
+        
+        int length = arr.length; // 길이를 저장.
+        
+        int answer = arr[length - 1]; // answer에 맨 뒤에 값을 저장해줌.
+        // 저장해주는 이유는 만약에 최고의 경우에는 그 맨뒤에 가장 큰 수가 최소공배수가 될 수 있기 때문, 1 , 2 , 4이런경우 4가 그냥 최소공배수
+        
+        // answer를 찾아낼 때 까지 반복해준다.
+        while(true) {
+            
+            int i = 0;
+            
+            for(i = 0; i < length; i++ ) { // 길이만큼 반복해주는데
+                if( answer % arr[i] != 0) {
+                    break; // 만약에 나눴을 떄 나머지가 0이 아니게되면 최소공배수가 아니므로 바로 깨주고
+                }
+            }
+            
+            if( i == length) { // i값이 길이랑 같아지게 되면 그냥 맨 마지막 값이 바로 최소공배수임
+                return answer;
+            } else {
+                answer++; // 아니라면 하나씩 증가시켜줌.
+            }
+        }
+        
+    }
+}

@@ -1,0 +1,77 @@
+import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Queue;
+
+class Solution {
+    
+    static int length; // 주어진 문자열의 길이를 저장해주는 변수
+    static int count; // 자른 문자열의 갯수를 세어줄 변수
+    
+    public int solution(String s) {
+        
+        int answer = 0;
+        
+        answer = Integer.MAX_VALUE; // 최소 문자열을 찾기 위한 것이기 때문에, 제일 큰수로 저장해놓음.
+        count = 1; 
+        
+        
+        // 만약에 주어진 문자열의 길이가 1이라면 바로 answer는 1이됨.
+        if(length == 1) {
+            answer = 1;
+        } else { // 아니라면
+            
+            //문자열의 반까지만 검사를 해줌. 만약 검사했을 때 왼쪽반이랑 오른쪽 반이랑 같다면 그냥 더해주기만 하면 됨.
+            for( int i = 1; i <= length / 2; i++ ) {
+                
+                String str = ""; // 압축한 문다열
+                String compare = ""; // 문자열을 자른다음에 비교를 위한
+                count = 1; // 카운트를 초기화해주는데 무조건 1부터 시작.
+                
+                // 잘라진 문자열 범위만큼만 반복해주기
+                for( int j = 0; j < length / i; j++ ) {
+                    
+                    if( compare.equals(s.substring(i*j), (i*j) + i)) {
+                        count++;
+                        continue;
+                    }
+                    
+                    if( count > 1) {
+                        
+                        str += count + compare;
+                        count = 1;
+                    } else {
+                        str += com;
+                    }
+                    
+                    com = s.substring(i*j,(i*j) + i);
+                    
+                }
+                
+                if(count > 1) {
+                    str += count + compare;
+                    count = 1;
+                } else {
+                    str += compare;
+                }
+                
+                if(length % i != 0) {
+                    str += s.substring(length - length%i, length);
+                }
+                
+                answer = answer > length ? length : answer;
+                
+                
+                
+            }
+            
+            
+            
+        }
+        
+        
+        
+        return answer;
+    }
+}

@@ -5,73 +5,67 @@ import java.util.ArrayList;
 import java.util.Queue;
 
 class Solution {
-    
-    static int length; // ÁÖ¾îÁø ¹®ÀÚ¿­ÀÇ ±æÀÌ¸¦ ÀúÀåÇØÁÖ´Â º¯¼ö
-    static int count; // ÀÚ¸¥ ¹®ÀÚ¿­ÀÇ °¹¼ö¸¦ ¼¼¾îÁÙ º¯¼ö
-    
-    public int solution(String s) {
-        
-        int answer = 0;
-        
-        answer = Integer.MAX_VALUE; // ÃÖ¼Ò ¹®ÀÚ¿­À» Ã£±â À§ÇÑ °ÍÀÌ±â ¶§¹®¿¡, Á¦ÀÏ Å«¼ö·Î ÀúÀåÇØ³õÀ½.
-        count = 1; 
+    public int solution(String s) {   
+       
+        int answer =Integer.MAX_VALUE; // ìµœì†Œ ë¬¸ìì—´ì„ ì°¾ê¸° ìœ„í•œ ë¹„êµ ë³€ìˆ˜.
+        int length = s.length(); // lengthì— ê¸¸ì´ê°’ ë„£ì–´ì¤Œ.
         
         
-        // ¸¸¾à¿¡ ÁÖ¾îÁø ¹®ÀÚ¿­ÀÇ ±æÀÌ°¡ 1ÀÌ¶ó¸é ¹Ù·Î answer´Â 1ÀÌµÊ.
-        if(length == 1) {
-            answer = 1;
-        } else { // ¾Æ´Ï¶ó¸é
+        if(length == 1) { // lengthê°€ 1ì´ë©´ ê·¸ëƒ¥ ë°”ë¡œ 1ì„ ë¦¬í„´í•´ì¤Œ
             
-            //¹®ÀÚ¿­ÀÇ ¹İ±îÁö¸¸ °Ë»ç¸¦ ÇØÁÜ. ¸¸¾à °Ë»çÇßÀ» ¶§ ¿ŞÂÊ¹İÀÌ¶û ¿À¸¥ÂÊ ¹İÀÌ¶û °°´Ù¸é ±×³É ´õÇØÁÖ±â¸¸ ÇÏ¸é µÊ.
-            for( int i = 1; i <= length / 2; i++ ) {
+            answer = 1;
+            return answer;
+            
+        } else {
+            // 1~ length/2 ë§Œí¼ ì••ì¶•ê°€ëŠ¥.
+            for(int i =1;i<=s.length()/2;i++){
                 
-                String str = ""; // ¾ĞÃàÇÑ ¹®´Ù¿­
-                String compare = ""; // ¹®ÀÚ¿­À» ÀÚ¸¥´ÙÀ½¿¡ ºñ±³¸¦ À§ÇÑ
-                count = 1; // Ä«¿îÆ®¸¦ ÃÊ±âÈ­ÇØÁÖ´Âµ¥ ¹«Á¶°Ç 1ºÎÅÍ ½ÃÀÛ.
+                String str = ""; // ì••ì¶• ê¸¸ì´ ë³„ ë¬¸ìì—´ ë³€ìˆ˜.
                 
-                // Àß¶óÁø ¹®ÀÚ¿­ ¹üÀ§¸¸Å­¸¸ ¹İº¹ÇØÁÖ±â
-                for( int j = 0; j < length / i; j++ ) {
-                    
-                    if( compare.equals(s.substring(i*j), (i*j) + i)) {
-                        count++;
-                        continue;
-                    }
-                    
-                    if( count > 1) {
-                        
-                        str += count + compare;
-                        count = 1;
-                    } else {
-                        str += com;
-                    }
-                    
-                    com = s.substring(i*j,(i*j) + i);
-                    
+                String temp=""; // ìë¥¸ ë¬¸ìì—´ì„ ë¹„êµí•˜ê¸° ìœ„í•´
+                
+                int count = 1; // ìë¥¸ ë¬¸ìì—´ ê°¯ìˆ˜ ì„¸ê¸° ìœ„í•œ ë³€ìˆ˜
+            
+                // substring()ì˜ ë²”ìœ„ë§Œí¼ ë°˜ë³µ.
+                for(int j =0;j<s.length()/i;j++){
+                // ì´ì „ì— ìë¥¸ ë¬¸ìì—´ê³¼ í˜„ì¬ ìë¥¸ ë¬¸ìì—´ì´ ê°™ë‹¤ë©´ ì¹´ìš´íŒ….
+                if(temp.equals(s.substring(j*i,(j*i)+i))){
+                    count++;
+                    continue;
                 }
-                
-                if(count > 1) {
-                    str += count + compare;
+                // ì¹´ìš´íŒ… > 1ì¸ ê²½ìš°ëŠ” count+temp í›„ count ì´ˆê¸°í™”.
+                if(count >1){
+                    str+=count+temp;
                     count = 1;
-                } else {
-                    str += compare;
+                // ë‚˜ë¨¸ì§€ì˜ ê²½ìš°ëŠ” ìë¥¸ ë¬¸ìì—´ì¸ tempë§Œ ë¶™ì—¬ì¤€ë‹¤.
+                }else{
+                    str+=temp;
                 }
                 
-                if(length % i != 0) {
-                    str += s.substring(length - length%i, length);
-                }
-                
-                answer = answer > length ? length : answer;
-                
-                
-                
+                // í˜„ì¬ ìë¥¸ ë¬¸ìì—´ë¡œ ë¹„êµëŒ€ìƒ ë³€ê²½.
+                temp=s.substring(j*i,(j*i)+i);
             }
             
+                // ë§ˆì§€ë§‰ì— ë¶™ì´ì§€ ëª»í•œ ë¬¸ìì—´ì„ ë¶™ì¸ë‹¤. 
+                if(count >1){
+                    str+=count+temp;
+                    count = 1;
+                }else{
+                str+=temp;
+                }
             
+                
+                if( length % i !=0 ){ // ê¸¸ì´ê°€ ì••ì¶•í•˜ëŠ” ê¸¸ì´ë¡œ ë‚˜ëˆ  ì§€ì§€ ì•Šìœ¼ë©´, 
+                 str += s.substring(length - length%i, length); // ë‚˜ë¨¸ì§€ ë¶€ë¶„ë¶€í„° ë§ˆì§€ë§‰ê¹Œì§€ substringìœ¼ë¡œ ì´ì–´ ë¶„ì—¬ì¤€ë‹¤.
+                }
             
-        }
-        
-        
-        
-        return answer;
+              
+                answer = Math.min(answer, str.length()); // ê°€ì¥ ì§§ì€ ê¸¸ì´ë¥¼ answerì— ë„£ì—‰ì¤Œ.
+            }
+      
+            
+            return answer;
+            }
+
     }
 }

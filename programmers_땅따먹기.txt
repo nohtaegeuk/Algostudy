@@ -1,0 +1,39 @@
+import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Queue;
+
+class Solution {
+    int solution(int[][] land) {
+        
+        int answer = 0;
+        
+        // 행계산
+        for(int i = 1 ; i < land.length ; i++) {
+            
+        	for(int j = 0 ; j < land[0].length ; j++) { // 열계산
+                
+        		int sum = Integer.MIN_VALUE; // 다시 sum을 초기화해줌.
+                
+        		for(int k = 0; k < land[0].length ; k++) { // 한칸씩 전진하면서 비교해주기
+	        		
+                    if(k==j){ // 같은 라인인 경우 그냥 넘어감
+                        continue;
+                    }else{ // 기존의 sum과 비교해줘서 더 큰값을 sum에 저장.
+                        sum = Math.max(sum, land[i-1][k]);
+                    }
+        		}
+                
+        		land[i][j] += sum; // sum을 더해줌
+                
+        	}
+        }
+        
+        Arrays.sort(land[land.length-1]); // 오름차순으로 정리해줘서 맨 마지막에 있는것이 최댓값이 됨.
+        
+        answer = land[land.length-1][land[0].length-1]; 
+        
+        return answer;
+    }
+}

@@ -1,0 +1,30 @@
+import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Queue;
+
+class Solution {
+    public long solution(int w, int h) {
+        long answer = 1;
+        
+        long long_w = (long)w; // long으로 해줌
+        long long_h = (long)h;
+        
+        long cut_count = ((long_w + long_h) - gcd(long_w, long_h)); // 가로 세로 더한 값에서 최대공약수 값 뺴주기.
+        
+        answer = (long_w * long_h) - cut_count; // 관통하는 정사각형 갯수를 빼줌
+        
+        return answer;
+    
+    }
+    
+    public long gcd( long w, long h) {
+        
+        if( h == 0 ) { // h가 0이면 그냥 바로 w리턴해줌
+            return w;
+        } else {
+            return gcd(h, w % h); // 아니라면 h와 그 나눈 나머지를 가지고 또 돌려줌.
+        }
+    }
+}

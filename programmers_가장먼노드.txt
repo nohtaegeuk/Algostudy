@@ -1,0 +1,62 @@
+import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Queue;
+
+class Solution {
+    
+    
+    public int solution(int n, int[][] edge) {
+       
+        int answer = 0;
+        
+        //길이값
+        int length = edge.length;
+        
+        // check해주는 배열하고 연결시켜주는 배열 만들어주기
+        boolean [] check = new boolean[n];
+        boolean [][] connect = new boolean[n][n];
+        
+        // 정수 넣어주는 큐 만들어주기
+        Queue<Integer> que = new LinkedList<>();
+        
+        check[0] = true; 
+        
+        for( int i = 0; i < length; i++ ) {
+            
+            // 일단 트루값으로 다 만들어주기
+            connect[edge[i][0] - 1][edge[i][1] - 1] = true;
+            connect[edge[i][1] - 1][edge[i][0] - 1] = true;
+        }
+        
+        que.add(0); // 일단 첫번째 노드 인자값으로 0 넣어주기
+        
+        // 큐 반복
+        while(!que.isEmpty()) {
+            
+            int quesize = que.size(); // 큐사이즈 quesize에 넣기
+            
+            // 큐사이즈만큼 돌리기
+            for( int i = 0; i < quesize; i++ ) {
+                
+                int node = que.poll(); // 큐에 넣었던 값들부터 순서대로 넣어주기
+                
+                for( int j = 0; j < n; j++ ) {
+                    
+                    // 만약에 노드에 이미 됐거나 연결되어있으면
+                    if( connect[j][node] && !check[j]) {
+                        check[j] = true; // 표시해주고
+                        que.add(j); // 큐에 넣어주기
+                    }
+                }
+            }
+            
+            answer = quesize; // 큐사이즈 answer에 넣기
+        }
+        
+        
+        
+        return answer;
+    }
+}

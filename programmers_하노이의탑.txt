@@ -1,0 +1,43 @@
+import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Queue;
+
+class Solution {
+    
+    ArrayList<int[]> list;
+    
+    public int[][] solution(int n) {
+    
+        list = new ArrayList<>(); //어레이리스트 만들어주기
+        
+        move(n, 1, 3, 2); // n을 넣어주는고 첫번쨰, 세번쨰, 두번째순
+        
+        int [][] answer = new int [list.size()][2]; // 크기만큼 이중 배열 만들어주기
+        
+        for( int i = 0; i < list.size(); ++i) { // 배열 크기만큼 반복
+            
+            int[] arr = list.get(i); 
+            answer[i][0] = arr[0];
+            answer[i][1] = arr[1];
+        }
+        
+        return answer;
+    
+    
+    }
+    
+    private void move(int n, int first, int third, int second) {
+        
+        int [] arr1 = {first, third};
+        
+        if( n == 1) { // n이 1일때는 걍 바로 third로 옮겨줌
+            list.add(arr1);
+        } else {
+            move(n-1, first, second, third); // 첫번쨰를 두번쨰로 옮기고
+            list.add(arr1);
+            move(n-1, second, third, first); // 이거 두번째에 있던것을 세번쨰로옮기기
+        }
+    }
+}

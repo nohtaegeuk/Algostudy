@@ -1,0 +1,41 @@
+import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Queue;
+
+class Solution {
+    public int[] solution(int n, int s) {
+        
+        
+        if( n > s ) {
+            
+            return new int[] {-1};
+        }
+        
+        int [] answer = new int [n];
+        
+        if( s % n == 0) { // 안 나눠 질 떄
+            
+            for( int i = 0; i < n; i++) {
+                answer[i] = s / n; // 값을 배열에 하나씩 넣어줌
+            }
+        } else {
+            
+            int remain = s % n; // 나머지 값
+            int value = n - remain; // 1씩 더해줘야 되는 배열 위치
+            
+            for( int i = 0; i < value; i++) { // 1씩 더해줘야 되는 위치까지는 걍 추가
+                answer[i] = s/ n;
+            }
+            
+            // n까지는 1씩 추가시켜줌
+            for( int i = value; i < n; i++ ) {
+                
+                answer[i] = s / n+1;
+            }
+        }
+        
+        return answer;
+    }
+}

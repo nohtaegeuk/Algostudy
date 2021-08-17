@@ -1,0 +1,48 @@
+import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Queue;
+
+
+class Solution {
+    
+    
+    public int solution(int[] stones, int k) {
+    
+        int answer = 0;
+        
+        int min = Integer.MAX_VALUE; // MAX값 중에 최소값을 저장하기 위한.
+        
+        // 징검다리 갯수에서 k만큼 반복해주기
+        for( int i = 0; i <= stones.length - k;) {
+            
+            int max = stones[i]; // 처음 것을 max에 넣어줌.
+            
+            int idx = 0; // 다음의 i의 위치를 지정하기 위한 idx
+            
+            for( int j = i+1; j < i+k; j++) { // k만큼 탐색해주기
+                
+                if( stones[j] >= max) { // 현재 징검다리가 여태까지의 구간동안의 최댓값보다 크거나 같을 때
+                    
+                    idx = j; // 인덱스에다가 현재 징검다리 번호 넣어주기
+                    max = stones[j]; // 구간의 최댓값을 현재껄로 바꿔주기
+                }
+            }
+            
+            if( idx == 0) { // 구간의 최댓값이 변경되지 않았다면, 그냥 한칸만 이동
+                i++; // 한 칸 더해주기
+            } else {
+                i = idx + 1; // 구간의 최댓값이 변경되었다면, 최댓값에 해당하는 징검다리번호에서 한칸 더해주기.
+            }
+            
+            min = Math.min(max, min); // 여태까지 구간의 최댓값이 다른 구간하고 비교값과 비교 후 더 작은 값을 넣어줌.
+        }
+        
+        answer = min;
+        
+        return answer;
+        
+        
+    }
+}

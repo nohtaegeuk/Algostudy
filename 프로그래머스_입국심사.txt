@@ -1,0 +1,58 @@
+import java.util.LinkedList;
+import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+
+class Solution {
+    public long solution(int n, int[] times) {
+      
+	    long answer = 0;
+	 	
+		Arrays.sort(times); // 배열을 정렬하여서 시간이 짧게 걸리는 심사위원시간을 맨 앞으로, 시간이 젤 길게 걸리는 심사위원의 시간을 맨 뒤로
+		
+		
+		long first = 0; // 딱 시작할 때 부터 걸리는 시간, 딱 시간이 재어지기 시작할 때 0부터 시작하지만, 어쩃든 최소로 걸리는 심사위원의 시간부터 세지는 거임
+		long end = Long.MAX_VALUE; // 오래 걸리는 심사위원으로 쪽으로만 다 몰렸을 떄 최악의 경우를 계산해주기
+		long mid = 0;
+		
+		long total_people = 0; // 초기화
+		long total_time = Long.MAX_VALUE; // 어차피 최소 시간을 구하는 거라 젤 오래걸리는 시간을 넣어줌.
+		
+		while( first <= end ) {
+			
+			mid = ( first + end ) / 2 ; // mid를 사용해서 이분탐색을 하게 되는데, 이제 mid를 이용해서 범위 안에 탐색을 하게 된다.
+						// 우선 제일 처음 부터 검색하게 되는 범위는 first부터 end 사이에서 탐색을 하게 된다.
+			
+			total_people = 0; // 초기화
+			
+			// 길이만큼 반복해주는데
+			for( int i = 0; i < times.length; i++) {
+				
+				total_people += mid / times[i]; // total_people 에 계속해서 중간타임으로 계산했을 때 넣어주기
+				
+				if( total_people >= n ) {
+					
+					break; // 만약에 mid 값으로 사람들을 심사했을 때 n보다 많아지게 되면 실패임
+				}
+			}
+			
+			if( total_people < n) { // 사람 다 계산 했을 때 n보다 작게되면 이것은 시간이 부족한거라
+				
+				first = mid + 1; // 하나 더 늘려주기
+				
+			} else {
+				
+				end = mid - 1; // 그렇지 않을 경우에는 시간이 남음 mid에서 하나 뺴주기
+				
+				total_time = Math.min(total_time, mid); // 그리고 mid와 total_time 중 최솟값만 저장해줌.
+			}
+			
+		}
+	 
+		answer = total_time;
+	 
+		return answer;
+     
+	}
+}

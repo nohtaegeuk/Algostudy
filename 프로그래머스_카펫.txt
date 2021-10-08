@@ -1,0 +1,46 @@
+import java.util.*;
+import java.io.*;
+
+
+class Solution {
+    
+    static int brown;
+		static int yellow;
+		static int[] answer;
+		static int total;
+		static int row;
+		static int vertical;
+    
+    public int[] solution(int brown, int yellow) {
+        answer = new int [2]; // 가로길이 먼저, 세로길이 그 다음으로 . 가로길이 >= 세로길이
+			row = 0; // 초기화
+			vertical = 0; // 초기화
+			
+			
+			total = brown + yellow; // total은 전체 면적 넓이를 말함
+			
+			for (int i = 1; i <= total; i++) {
+				
+				row = i; // row를 1부터 하나씩 키워주기
+				
+				vertical = total / row; // vertical은 total에서 row 나눈거
+				
+				
+				if( row >= vertical) { // 만약에 row가 vertical보다 크거나 같으면
+					// 가로에서 2뺴고 세로에서 2뺸걸 곱했을 때 yellow 넓이와 같으면 그게 바로 정답
+					if((row - 2) * (vertical -2) == yellow) {
+						
+						answer[0] = row; // 가로 정보 부터 넣어주기
+						answer[1] = vertical; // 그 다음에 세로 정보 넣어주기
+					}  
+				} 
+				
+				
+			}
+			
+			
+			
+			
+			return answer;
+    }
+}

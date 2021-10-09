@@ -1,0 +1,43 @@
+import java.util.*;
+import java.io.*;
+
+
+class Solution {
+    public String solution(String number, int k) {
+            String answer = " "; // 초기화
+			int max = 0; // 초기화
+			
+			
+			
+			StringBuilder sb = new StringBuilder();
+			
+			
+			int cur_index = 0; // 현재 없애야 하는 위치
+			
+			
+			for (int i = 0; i < number.length() - k; i++) { // 만들어야 되는 문자열 길이만큼만 반복해주기
+				
+				max = 0; // i번째 위치가 바뀔 때마다 최댓값이 바뀔 수 있어서 초기화 시켜주기
+				
+				for (int j = cur_index; j <= k + i ; j++) { // cur_index부터 시작해서 뒤에서 부터 k개 만큼 잘라낸거에 까지 완전탐색해주면서
+					
+					if( number.charAt(j) - '0' > max) { // 문자열이기 때문에 '0'을 뺴줘야함
+						
+						max = number.charAt(j) - '0'; // max에 값 넣어주고
+						
+						cur_index = j+1; // cur_index를 j의 위치에서 오른쪾으로. 무조건 왼쪾에서 오른쪽으로만 진행됨. 오른쪽에서 왼쪽으로 하는건 없음
+					}
+					
+				}
+				
+				
+				sb.append(max);
+				
+			}
+			
+			
+			
+			return sb.toString();
+	     
+    }
+}

@@ -1,0 +1,62 @@
+import java.util.*;
+import java.io.*;
+
+class Solution {
+    
+    static int answer;
+	   static int length;
+    
+    
+    public int solution(String name) {
+        answer = 0; // 초기화
+			length = name.length(); // 문자열 길이정보
+			
+			int count = length - 1; // 만약에 그냥 다 A라서 최소한으로
+			
+			
+			for (int i = 0; i < length; i++) { // 길이만큼
+				
+				
+				if( name.charAt(i) > 'M') { // 만약에 M보다 더 뒤에 있는거면
+					
+					answer += 'Z' - name.charAt(i) + 1; // 그냥 왼쪽으로 돌리면 됨
+				} else {
+					
+					answer += name.charAt(i) - 'A'; // 아니면 그냥 오른쪾으로 돌려주기
+				}
+				
+				
+				int next_char = i+1; // 다음 문자부터 A가 몇개 있는지 확인하기 위해
+				
+				
+// 				for (int j = i+1; j < length; j++) { // 이게 i부터 다음 그 문자들이 A가 얼만큼있나 확인
+					
+// 					if( name.charAt(j) == 'A') { // 다음 문자에 있는게 
+// 						++next_char; // 이게 다음 문자가 A면 1씩 더해주고
+// 					}
+					
+// 				}
+                
+                while( next_char < length && name.charAt(next_char) == 'A') {
+                    
+                    ++next_char;;
+                }
+                
+				
+				// count는 최솟값을 넣어줘야 되는데, 애초에 
+				// 그냥 오른쪾으로만 눌렀을 떄, 그냥 그 값과
+				// 이게 오른쪾으로 검색하다가 다시 왼쪽으로 검색한다음에 A가 반복된 만큼 전체 문자열에서 뺴준 값을 더해준 값중
+				// 최솟값을 해주기
+				count = Math.min(count, i+i+(length - next_char));
+				
+				
+			}
+			
+			
+			answer += count;
+			
+			
+			return answer;
+	     
+    }
+}

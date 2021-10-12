@@ -1,0 +1,63 @@
+package test2;
+
+import java.util.*;
+import java.io.*;
+
+
+   class Solution {
+		
+	   static int answer;
+	   static int limit;
+	   
+		public static void main(String[] args) {
+
+			int[] people = {70, 50, 80, 50};
+		    limit = 100;
+		    
+		    
+			
+		    Solution solution = new Solution();
+	    
+		    System.out.println(solution.solution(people, limit));
+		    
+		}
+		
+		
+		public int solution(int[] people, int limit) {
+		      
+		  answer = 0;
+			
+		  
+		  Arrays.sort(people); // 몸무게 가벼운 사람부터 무거운 사람으로 순서 정리해주기
+		  
+		  int length = people.length;
+		  
+		  int j = 0;
+		  
+		  // 맨 뒷, 몸무게 젤 많이 나가는 사람부터 봐주는데
+		  for( int i = length-1 ; j <= i; i--) {
+			  
+			  // 만약에 최소 몸무게 사람이랑 최대 몸무게 사람이 합이 limit보다 클 때는
+			  // 그냥 몸무게 젤 많이 나가는 사람을 한 대 그냥 통으로 태워서 보내버린다
+			  if( people[i] + people[j] > limit) {
+				  
+				  answer++; // 보트갯수 더해주기
+				  
+			  } else { // 만약에 아니면 limit보다 작으면
+				  
+				  // 두 명을 태워서 보내야 되기 떄문에 
+				  // 그 다음으로 몸무게 작은 사람을 중심으로 그 다음 사람을 판단해야 하기 떄문에 j에다 1 더해준다.
+				  answer++;
+				  j++;
+			  }
+		  }
+		  
+			
+		  return answer;
+			
+		}
+		
+	
+		
+		
+}
